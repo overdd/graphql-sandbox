@@ -5,12 +5,13 @@ class Store {
 }
 
 class Product {
-    constructor(id, {name, description, price, soldout, stores}) {
+    constructor(id, {name, description, price, soldout, inventory, stores}) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.soldout = soldout;
+        this.inventory = inventory;
         this.stores = stores.map(store => new Store(store.store));
     } 
 }
@@ -24,7 +25,7 @@ export const resolvers = {
     createProduct: ({input}) => {
         let id = require('crypto').randomBytes(10).toString('hex');
         productDatabase[id] = input;
-
+        console.log(productDatabase)
         return new Product(id, input);
     }
 };
