@@ -10,11 +10,22 @@ export const resolvers = {
     getProduct: async ({id}) => {
         return await Widgets.findById(id);
     },
-    createProduct: ({input}) => {
-        // let id = require('crypto').randomBytes(10).toString('hex');
-        // productDatabase[id] = input;
-        // console.log(productDatabase)
-        // return new Product(id, input);
+    createProduct: async ({input}) => {
+        const newWidget = new Widgets({
+            name: input.name,
+            description: input.description,
+            price: input.price,
+            soldout: input.soldout,
+            stores: input.stores
+        });
+        return await newWidget.save();
+    },
+    updateProduct: async ({input}) => {
+        return await Widgets.findOneAndUpdate({_id: input.id}, input, { new: true});
+    },
+    deleteProduct: async ({id}) => {
+        await Widgets.findOneAndDelete({_id: id});
+        return (`Product ${id} was deleted`);
     }
 };
 
