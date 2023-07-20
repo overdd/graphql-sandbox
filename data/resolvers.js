@@ -10,6 +10,9 @@ export const resolvers = {
     getProduct: async ({id}) => {
         return await Widgets.findById(id);
     },
+    getAllProducts: async () => {
+        return await Widgets.find({})
+    },
     createProduct: async ({input}) => {
         const newWidget = new Widgets({
             name: input.name,
